@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chloë Lieveld | Digital Marketing & UX/UI Designer</title>
+  <meta name="description" content="Persoonlijke website van Chloë Lieveld – creatief designer met een passie voor UX/UI, HCI en gedragspsychologie." />
+  <meta name="keywords" content="Chloë Lieveld, UX UI design, digital marketing, personal branding, HCI, Amsterdam" />
+  <meta name="author" content="Chloë Lieveld" />
+  <meta property="og:title" content="Chloë Lieveld | Digital Marketing & UX/UI" />
+  <meta property="og:description" content="Creatief designer met een passie voor UX/UI, HCI en gedragspsychologie." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)" />
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap)" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:     #f0eff5;
+      --bg2:    #eceaf4;
+      --ink:    #1a1825;
+      --ink2:   #5a5770;
+      --accent: #7c6ff7;
+      --glass:  rgba(255,255,255,0.55);
+      --border: rgba(180,170,220,0.3);
+      --ff-s:   'Instrument Serif', serif;
+      --ff-b:   'DM Sans', sans-serif;
+      --ease:   cubic-bezier(0.16,1,0.3,1);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--ff-b); background:var(--bg); color:var(--ink); overflow-x:hidden; }
+    ::selection { background:#c9c2ff; color:var(--ink); }
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:#bbb5e8; border-radius:99px; }
+
+    /* ── FLOATING ORB HELPERS ── */
+    @keyframes floatA { 0%,100%{transform:translateY(0) scale(1);} 40%{transform:translateY(-28px) scale(1.03);} 70%{transform:translateY(12px) scale(0.97);} }
+    @keyframes floatB { 0%,100%{transform:translateY(0) translateX(0);} 45%{transform:translateY(-20px) translateX(12px);} }
+    @keyframes floatC { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-18px) rotate(6deg);} }
+    @keyframes orbPulse { 0%,100%{transform:scale(1) rotate(0deg);} 33%{transform:scale(1.04) rotate(3deg);} 66%{transform:scale(0.97) rotate(-2deg);} }
+    @keyframes irisRot { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+    @keyframes ringRot { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+    @keyframes blink   { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+    @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; width:100%; z-index:200;
+      padding:18px 56px;
+      display:flex; align-items:center; justify-content:space-between;
+      backdrop-filter:blur(24px) saturate(160%);
+      background:rgba(240,239,245,0.82);
+      border-bottom:1px solid var(--border);
+      transition:all .4s var(--ease);
+    }
+    .nav-logo { font-family:var(--ff-s); font-size:1.35rem; color:var(--ink); text-decoration:none; letter-spacing:-.3px; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; }
+    .nav-links a { font-size:.84rem; font-weight:500; color:var(--ink2); text-decoration:none; position:relative; transition:color .3s; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--accent); transition:width .3s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-pill { background:var(--ink)!important; color:#fff!important; padding:8px 20px; border-radius:99px; }
+    .nav-pill::after { display:none!important; }
+    .nav-pill:hover { background:var(--accent)!important; color:#fff!important; }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+    .hamburger span { display:block; width:22px; height:1.5px; background:var(--ink); transition:all .3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display:none; position:fixed; inset:0; background:var(--bg); z-index:199; flex-direction:column; align-items:center; justify-content:center; gap:36px; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { font-family:var(--ff-s); font-size:2.4rem; color:var(--ink); text-decoration:none; transition:color .3s; }
+    .mobile-menu a:hover { color:var(--accent); }
+
+    /* ── SHARED ── */
+    section { padding:100px 56px; position:relative; }
+    .sec-label { display:inline-flex; align-items:center; gap:8px; font-size:.72rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .sec-label::before { content:''; display:block; width:20px; height:1.5px; background:var(--accent); }
+    .sec-title { font-family:var(--ff-s); font-size:clamp(2.2rem,5vw,4rem); line-height:1.1; letter-spacing:-1px; color:var(--ink); margin-bottom:20px; }
+    .sec-title em { font-style:italic; color:var(--accent); }
+
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:99px; font-family:var(--ff-b); font-size:.875rem; font-weight:500; cursor:pointer; text-decoration:none; border:none; transition:all .3s var(--ease); }
+    .btn-dark { background:var(--ink); color:#fff; }
+    .btn-dark:hover { background:var(--accent); transform:translateY(-2px); box-shadow:0 12px 32px rgba(124,111,247,.3); }
+    .btn-ghost { background:var(--glass); border:1px solid var(--border); color:var(--ink); backdrop-filter:blur(10px); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+
+    /* ── HERO ── */
+    #home {
+      min-height:100vh; display:flex; align-items:center; padding-top:120px;
+      background:linear-gradient(160deg,#f3f1fb 0%,#ece9f7 40%,#f0eef8 100%);
+      overflow:hidden;
+    }
+    .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%; position:relative; z-index:1; }
+
+    /* Background orbs */
+    .bg-orb { position:absolute; border-radius:50%; pointer-events:none; will-change:transform; }
+    .bg-orb-1 { width:400px; height:400px; top:-100px; right:5%; background:radial-gradient(circle at 35% 32%,rgba(255,255,255,.9) 0%,rgba(200,190,255,.55) 25%,rgba(160,210,255,.35) 55%,transparent 100%); box-shadow:inset 0 0 60px rgba(255,255,255,.4); animation:floatA 9s ease-in-out infinite; }
+    .bg-orb-2 { width:200px; height:200px; top:40%; left:-60px; background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.88) 0%,rgba(170,230,255,.55) 35%,rgba(200,160,255,.3) 65%,transparent 100%); animation:floatB 12s ease-in-out infinite; }
+    .bg-orb-3 { width:120px; height:120px; bottom:15%; right:25%; background:radial-gradient(circle at 38% 33%,rgba(255,255,255,.95) 0%,rgba(255,200,230,.6) 30%,rgba(180,160,255,.4) 65%,transparent 100%); animation:floatC 7s ease-in-out infinite; }
+    .bg-ring { position:absolute; border-radius:50%; pointer-events:none; }
+    .bg-ring::before { content:''; position:absolute; inset:-2px; border-radius:50%; border:14px solid transparent; background:conic-gradient(from 0deg,rgba(200,190,255,.5),rgba(160,220,255,.45),rgba(255,190,220,.45),rgba(200,255,210,.28),rgba(200,190,255,.5)) border-box; -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0); -webkit-mask-composite:destination-out; mask-composite:exclude; animation:ringRot 8s linear infinite; }
+    .bg-ring-1 { width:250px; height:250px; top:14%; left:22%; animation:floatB 14s ease-in-out infinite; }
+    .bg-ring-2 { width:100px; height:100px; bottom:20%; left:10%; animation:floatC 10s ease-in-out infinite; }
+    .bg-ring-2::before { border-width:9px; animation-direction:reverse; animation-duration:6s; }
+
+    .hero-tag { display:inline-flex; align-items:center; gap:10px; background:var(--glass); border:1px solid var(--border); border-radius:99px; padding:9px 22px; font-size:.78rem; font-weight:500; color:var(--ink2); margin-bottom:28px; backdrop-filter:blur(10px); }
+    .dot-live { width:8px; height:8px; background:var(--accent); border-radius:50%; animation:blink 2s infinite; }
+    .hero-title { font-family:var(--ff-s); font-size:clamp(3rem,6vw,5.5rem); line-height:1.02; letter-spacing:-2px; color:var(--ink); margin-bottom:24px; }
+    .hero-title em { color:var(--accent); font-style:italic; }
+    .hero-sub { font-size:1.05rem; color:var(--ink2); line-height:1.75; max-width:480px; margin-bottom:40px; font-weight:300; }
+    .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
+    .hero-stats { display:flex; gap:40px; margin-top:52px; padding-top:32px; border-top:1px solid var(--border); }
+    .stat-n { font-family:var(--ff-s); font-size:2.2rem; color:var(--ink); line-height:1; }
+    .stat-l { font-size:.76rem; color:var(--ink2); margin-top:4px; }
+
+    /* Hero visual */
+    .hero-visual { display:flex; align-items:center; justify-content:center; position:relative; height:500px; }
+    .h-orb-main {
+      width:320px; height:320px; border-radius:50%; position:absolute;
+      background:radial-gradient(circle at 35% 30%,rgba(255,255,255,1) 0%,rgba(220,210,255,.7) 20%,rgba(180,200,255,.5) 40%,rgba(255,190,220,.35) 60%,rgba(200,240,255,.2) 80%,transparent 100%);
+      box-shadow:inset 0 0 80px rgba(255,255,255,.6),inset 0 -20px 60px rgba(200,185,255,.3),0 20px 100px rgba(180,160,255,.2);
+      animation:orbPulse 8s ease-in-out infinite;
+    }
+    .h-orb-main::before { content:''; position:absolute; top:12%; left:18%; width:35%; height:25%; background:rgba(255,255,255,.8); border-radius:50%; filter:blur(14px); }
+    .h-orb-main::after  { content:''; position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 200deg,rgba(200,190,255,.15) 0deg,rgba(160,220,255,.2) 90deg,rgba(255,200,230,.15) 180deg,rgba(200,255,210,.1) 270deg,rgba(200,190,255,.15) 360deg); animation:irisRot 12s linear infinite; }
+    .h-ring { position:absolute; border-radius:50%; }
+    .h-ring::before { content:''; position:absolute; inset:0; border-radius:50%; border:1.5px solid transparent; background:conic-gradient(from 0deg,rgba(180,160,255,.5),rgba(160,220,255,.4),rgba(255,180,210,.4),rgba(200,255,230,.3),rgba(180,160,255,.5)) border-box; -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0); -webkit-mask-composite:destination-out; mask-composite:exclude; animation:ringRot 10s linear infinite; }
+    .h-ring-1 { width:390px; height:390px; }
+    .h-ring-2 { width:450px; height:450px; }
+    .h-ring-2::before { animation-duration:16s; animation-direction:reverse; opacity:.5; }
+    .sat { position:absolute; border-radius:50%; }
+    .sat-1 { width:78px; height:78px; top:36px; right:46px; background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.95),rgba(160,220,255,.7) 50%,rgba(200,180,255,.3) 100%); animation:floatC 10s ease-in-out infinite; }
+    .sat-2 { width:48px; height:48px; bottom:78px; left:58px; background:radial-gradient(circle at 38% 35%,rgba(255,255,255,.95),rgba(255,190,220,.7) 50%,rgba(200,160,255,.3) 100%); animation:floatB 8s ease-in-out infinite; }
+    .sat-3 { width:32px; height:32px; top:118px; left:38px; background:radial-gradient(circle at 38% 35%,rgba(255,255,255,.95),rgba(200,240,180,.6) 50%,rgba(160,210,255,.3) 100%); animation:floatA 13s ease-in-out infinite; }
+
+    /* ── MARQUEE ── */
+    .marquee-bar { overflow:hidden; background:var(--ink); padding:15px 0; }
+    .marquee-track { display:flex; white-space:nowrap; animation:marquee 24s linear infinite; }
+    .marquee-track span { font-size:.78rem; font-weight:500; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.12em; padding:0 26px; }
+    .marquee-track span.ac { color:#c9c2ff; }
+    .marquee-track span::after { content:'◦'; margin-left:26px; opacity:.4; }
+
+    /* ── OVER MIJ ── */
+    #over-mij { background:var(--bg2); overflow:hidden; }
+    .over-grid { display:grid; grid-template-columns:5fr 7fr; gap:80px; align-items:start; }
+    .photo-col { position:relative; }
+    .photo-frame { width:100%; aspect-ratio:3/4; border-radius:32px; overflow:hidden; position:relative; box-shadow:0 40px 80px rgba(120,100,200,.15),0 0 0 1px var(--border); }
+    .photo-frame img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+    .photo-sheen { position:absolute; inset:0; border-radius:32px; background:linear-gradient(180deg,transparent 60%,rgba(180,160,255,.1) 100%); pointer-events:none; }
+    .float-card { position:absolute; top:-18px; left:-22px; background:rgba(255,255,255,.88); backdrop-filter:blur(16px); border:1px solid var(--border); border-radius:18px; padding:14px 18px; z-index:2; box-shadow:0 8px 32px rgba(120,100,200,.12); animation:floatC 8s ease-in-out infinite; }
+    .float-card strong { display:block; font-family:var(--ff-s); font-size:1.5rem; color:var(--ink); line-height:1; }
+    .float-card span { font-size:.73rem; color:var(--ink2); margin-top:2px; display:block; }
+    .float-badge { position:absolute; bottom:-16px; right:-16px; background:var(--accent); color:#fff; border-radius:14px; padding:12px 18px; z-index:2; font-size:.8rem; font-weight:600; box-shadow:0 8px 24px rgba(124,111,247,.35); animation:floatA 9s ease-in-out infinite; }
+    .deco-orb { position:absolute; border-radius:50%; pointer-events:none; }
+    .d1 { width:48px; height:48px; top:32%; right:-26px; background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.9),rgba(200,185,255,.6) 50%,transparent); animation:floatC 7s ease-in-out infinite 0s; }
+    .d2 { width:28px; height:28px; bottom:28%; left:-16px; background:radial-gradient(circle at 38% 35%,rgba(255,255,255,.9),rgba(160,220,255,.6) 50%,transparent); animation:floatB 9s ease-in-out infinite; }
+
+    .bio-text { font-size:1.03rem; color:var(--ink2); line-height:1.82; margin-bottom:26px; font-weight:300; }
+    .vision-quote { background:rgba(255,255,255,.6); backdrop-filter:blur(10px); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 16px 16px 0; padding:20px 24px; margin-bottom:28px; font-style:italic; font-family:var(--ff-s); font-size:1.08rem; color:var(--ink); line-height:1.65; }
+    .pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:30px; }
+    .pill { background:rgba(255,255,255,.7); border:1px solid var(--border); border-radius:99px; padding:7px 16px; font-size:.78rem; font-weight:500; color:var(--ink2); transition:all .3s; cursor:default; backdrop-filter:blur(8px); }
+    .pill:hover { background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-1px); }
+    .link-row { display:flex; gap:12px; flex-wrap:wrap; }
+
+    /* ── BLOG ── */
+    #blog { background:var(--bg); }
+    .blog-card { background:rgba(255,255,255,.7); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:32px; overflow:hidden; transition:all .4s var(--ease); }
+    .blog-card:hover { transform:translateY(-6px); box-shadow:0 40px 80px rgba(120,100,200,.15); }
+    .blog-visual { width:100%; aspect-ratio:16/7; background:linear-gradient(135deg,#f0eeff 0%,#e8e2ff 40%,#f5e8ff 70%,#eef5ff 100%); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .bv-orb { position:absolute; border-radius:50%; }
+    .bv1 { width:300px; height:300px; top:-70px; right:8%; background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95) 0%,rgba(200,185,255,.65) 30%,rgba(160,215,255,.4) 60%,transparent 100%); animation:orbPulse 9s ease-in-out infinite; }
+    .bv2 { width:170px; height:170px; bottom:-45px; left:14%; background:radial-gradient(circle at 38% 33%,rgba(255,255,255,.9) 0%,rgba(255,195,225,.6) 35%,rgba(200,175,255,.35) 70%,transparent 100%); animation:floatC 8s ease-in-out infinite; }
+    .bv3 { width:110px; height:110px; top:22%; left:32%; background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.88) 0%,rgba(200,240,220,.6) 40%,rgba(160,210,255,.3) 75%,transparent 100%); animation:floatB 11s ease-in-out infinite; }
+    .bv-ring { position:absolute; width:200px; height:200px; bottom:10%; right:20%; border-radius:50%; }
+    .bv-ring::before { content:''; position:absolute; inset:0; border-radius:50%; border:12px solid transparent; background:conic-gradient(from 45deg,rgba(200,190,255,.6),rgba(160,220,255,.5),rgba(255,190,220,.5),rgba(200,190,255,.6)) border-box; -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0); -webkit-mask-composite:destination-out; mask-composite:exclude; animation:ringRot 9s linear infinite reverse; }
+    .blog-label { position:absolute; top:24px; left:28px; background:var(--accent); color:#fff; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; padding:7px 16px; border-radius:99px; }
+    .blog-sdg { position:absolute; top:24px; right:28px; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1px solid var(--border); color:var(--ink); font-size:.72rem; font-weight:600; padding:7px 16px; border-radius:99px; }
+
+    .blog-body { padding:48px; }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:20px; }
+    .blog-date { font-size:.78rem; color:var(--ink2); }
+    .blog-read { font-size:.78rem; color:var(--accent); font-weight:500; }
+    .blog-title { font-family:var(--ff-s); font-size:clamp(1.6rem,3vw,2.4rem); line-height:1.2; letter-spacing:-.5px; color:var(--ink); margin-bottom:20px; }
+    .blog-intro { font-size:1rem; color:var(--ink2); line-height:1.82; font-weight:300; border-left:2.5px solid var(--accent); padding-left:18px; margin-bottom:32px; }
+
+    /* Accordion */
+    .acc { margin-top:8px; }
+    .acc-item { border-bottom:1px solid var(--border); }
+    .acc-header { display:flex; justify-content:space-between; align-items:center; padding:18px 0; cursor:pointer; font-weight:500; font-size:.95rem; color:var(--ink); transition:color .3s; user-select:none; }
+    .acc-header:hover { color:var(--accent); }
+    .acc-icon { width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.6); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.9rem; transition:all .3s var(--ease); flex-shrink:0; backdrop-filter:blur(8px); }
+    .acc-item.open .acc-icon { background:var(--accent); color:#fff; transform:rotate(45deg); border-color:var(--accent); }
+    .acc-content { max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
+    .acc-item.open .acc-content { max-height:800px; }
+    .acc-inner { padding-bottom:22px; font-size:.93rem; color:var(--ink2); line-height:1.82; font-weight:300; }
+    .acc-inner p { margin-bottom:12px; }
+    .acc-inner p:last-child { margin-bottom:0; }
+
+    .highlight-box { background:linear-gradient(135deg,rgba(124,111,247,.07),rgba(192,132,252,.05)); border:1px solid rgba(124,111,247,.2); border-radius:16px; padding:20px 24px; margin:16px 0; }
+    .stat-badge { display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:#fff; font-weight:600; font-size:.82rem; padding:5px 14px; border-radius:99px; margin:6px 0; }
+
+    .video-placeholder { background:rgba(255,255,255,.5); border:2px dashed var(--border); border-radius:20px; padding:44px; text-align:center; margin:20px 0; cursor:pointer; transition:all .3s var(--ease); backdrop-filter:blur(8px); }
+    .video-placeholder:hover { border-color:var(--accent); background:rgba(124,111,247,.04); }
+    .play-btn { width:64px; height:64px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.3rem; color:#fff; transition:all .3s var(--ease); }
+    .video-placeholder:hover .play-btn { transform:scale(1.1); background:#6055e0; box-shadow:0 12px 32px rgba(124,111,247,.3); }
+    .vp-title { font-weight:500; font-size:.9rem; color:var(--ink); margin-bottom:4px; }
+    .vp-sub { font-size:.78rem; color:var(--ink2); }
+
+    .ux-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:20px 0; }
+    .ux-card { background:rgba(255,255,255,.55); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center; transition:all .3s var(--ease); backdrop-filter:blur(8px); }
+    .ux-card:hover { background:rgba(124,111,247,.07); border-color:rgba(124,111,247,.3); transform:translateY(-3px); }
+    .ux-icon { font-size:1.8rem; margin-bottom:10px; }
+    .ux-label { font-weight:600; font-size:.82rem; color:var(--ink); margin-bottom:4px; }
+    .ux-desc { font-size:.76rem; color:var(--ink2); line-height:1.5; }
+
+    .refs { margin-top:36px; padding-top:22px; border-top:1px solid var(--border); }
+    .refs h4 { font-size:.72rem; font-weight:600; color:var(--ink2); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; }
+    .refs p { font-size:.76rem; color:#8a88a0; line-height:1.65; font-style:italic; }
+
+    /* ── PORTFOLIO ── */
+  #portfolio { background:var(--bg2); }
+  .port-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:48px; }
+  .port-card { border-radius:24px; overflow:hidden; background:rgba(255,255,255,.6); border:1px solid var(--border); backdrop-filter:blur(12px); transition:all .4s var(--ease); cursor:pointer; }
+  .port-card:hover { transform:translateY(-6px); box-shadow:0 30px 70px rgba(120,100,200,.14); }
+  .port-thumb { aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  
+  /* Z-index toegevoegd zodat de tekst ALTIJD bovenop de afbeelding komt bij een hover */
+  .port-overlay { position:absolute; inset:0; background:rgba(240,239,245,.92); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; opacity:0; transition:all .4s var(--ease); padding:24px; text-align:center; backdrop-filter:blur(8px); z-index: 2; }
+  .port-card:hover .port-overlay { opacity:1; }
+  .port-overlay h3 { font-family:var(--ff-s); font-size:1.1rem; color:var(--ink); }
+  .port-overlay p { font-size:.78rem; color:var(--ink2); line-height:1.5; }
+  .port-soon { background:var(--accent); color:#fff; font-size:.7rem; font-weight:600; padding:5px 12px; border-radius:99px; }
+  .port-info { padding:20px 22px; }
+  .port-name { font-weight:600; font-size:.9rem; color:var(--ink); margin-bottom:4px; }
+  .port-tag { font-size:.75rem; color:var(--ink2); }
+
+  /* Port thumb gradients */
+  .pt-1 { background:linear-gradient(135deg,#ede9ff,#d4ccff,#e8f4ff); }
+  .pt-2 { background:linear-gradient(135deg,#fff0f5,#ffd9ea,#ffe8f0); }
+  .pt-3 { background:linear-gradient(135deg,#eefff4,#d0f5e8,#e8fff4); }
+  
+  /* Z-index 0 gezet zodat de orbs achter je afbeeldingen blijven zweven */
+  .pt-orb { width:80px; height:80px; border-radius:50%; position: absolute; z-index: 0; }
+  .po-1 { background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(200,185,255,.7) 45%,rgba(160,215,255,.4) 75%,transparent); animation:orbPulse 7s ease-in-out infinite; }
+  .po-2 { background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(255,190,220,.7) 45%,rgba(200,160,255,.4) 75%,transparent); animation:orbPulse 9s ease-in-out infinite; }
+  .po-3 { background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(180,240,210,.7) 45%,rgba(160,220,255,.4) 75%,transparent); animation:orbPulse 11s ease-in-out infinite; } 
+
+  /* DIT IS DE NIEUWE EN CRUCIALE FIX VOOR JE AFBEELDINGEN */
+  .port-thumb img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+    /* ── MEDIA ── */
+    #media { background:var(--bg); }
+    .media-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:48px; }
+    .media-card { background:rgba(255,255,255,.6); border:1px solid var(--border); border-radius:24px; overflow:hidden; transition:all .4s var(--ease); backdrop-filter:blur(12px); }
+    .media-card:hover { transform:translateY(-5px); box-shadow:0 24px 60px rgba(120,100,200,.13); }
+    .media-thumb { aspect-ratio:16/9; position:relative; overflow:hidden; cursor:pointer; }
+    .media-thumb iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .media-thumb-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#e8e2ff,#f5e8ff,#eef5ff); }
+    .media-play-btn { width:56px; height:56px; background:rgba(255,255,255,.85); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:var(--accent); transition:all .3s; backdrop-filter:blur(8px); box-shadow:0 4px 20px rgba(124,111,247,.2); }
+    .media-thumb:hover .media-play-btn { transform:scale(1.1); background:#fff; box-shadow:0 8px 32px rgba(124,111,247,.3); }
+    .media-info { padding:22px 24px; }
+    .media-type { font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); margin-bottom:6px; }
+    .media-title { font-weight:600; font-size:.92rem; color:var(--ink); line-height:1.45; margin-bottom:5px; }
+    .media-meta { font-size:.76rem; color:var(--ink2); }
+    .pod-icon { width:52px; height:52px; background:linear-gradient(135deg,var(--accent),#c084fc); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+    .pod-info { flex:1; }
+    .pod-title { font-weight:600; font-size:.9rem; color:var(--ink); margin-bottom:3px; }
+    .pod-meta { font-size:.76rem; color:var(--ink2); }
+    .pod-dur { background:rgba(255,255,255,.7); border:1px solid var(--border); padding:5px 12px; border-radius:99px; font-size:.72rem; color:var(--ink2); backdrop-filter:blur(6px); }
+
+    /* ── FOOTER ── */
+footer {
+    background: var(--ink); 
+    padding: 60px 56px 40px;
+    position: relative; 
+    overflow: hidden;
+
+    /* DIT ZORGT ERVOOR DAT HIJ UIT DE CONTAINER BREEKT TOT DE RAND VAN HET SCHERM */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+  
+  .footer-orb { position:absolute; border-radius:50%; pointer-events:none; }
+  .fo-1 { width:300px; height:300px; top:-100px; right:-60px; background:radial-gradient(circle at 35% 30%,rgba(124,111,247,.25),transparent 70%); animation:floatA 12s ease-in-out infinite; }
+  .fo-2 { width:180px; height:180px; bottom:-60px; left:10%; background:radial-gradient(circle at 35% 30%,rgba(192,132,252,.2),transparent 70%); animation:floatC 9s ease-in-out infinite; }
+  
+  /* Zorg dat de inhoud van de footer wel netjes binnengelijnd blijft met de rest van je site */
+  .footer-grid { 
+    display:grid; 
+    grid-template-columns:1fr 1fr 1fr; 
+    gap:48px; 
+    margin-bottom:48px; 
+    position:relative; 
+    z-index:1;
+    max-width: 1200px; /* Pas dit aan naar de breedte van je portfolio-grid als dat strakker staat */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .footer-brand .nav-logo { color:#fff; display:block; margin-bottom:14px; }
+  .footer-brand p { font-size:.84rem; color:rgba(255,255,255,.45); line-height:1.7; max-width:240px; }
+  .footer-col h4 { font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:16px; }
+  .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .footer-col ul a { font-size:.84rem; color:rgba(255,255,255,.55); text-decoration:none; transition:color .3s; }
+  .footer-col ul a:hover { color:#fff; }
+  
+  /* Ook de onderkant netjes binnen de gecentreerde max-width dwingen */
+  .footer-bottom { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    padding-top:28px; 
+    border-top:1px solid rgba(255,255,255,.08); 
+    position:relative; 
+    z-index:1; 
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .footer-copy { font-size:.76rem; color:rgba(255,255,255,.3); }
+  .footer-socials { display:flex; gap:12px; }
+  .social-btn { width:36px; height:36px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.85rem; color:rgba(255,255,255,.5); text-decoration:none; transition:all .3s; }
+  .social-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-2px); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      nav { padding:16px 24px; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      section { padding:70px 24px; }
+      .hero-grid { grid-template-columns:1fr; }
+      .hero-visual { height:320px; margin-top:24px; }
+      .h-orb-main { width:220px; height:220px; }
+      .h-ring-1 { width:270px; height:270px; }
+      .h-ring-2 { width:320px; height:320px; }
+      .over-grid { grid-template-columns:1fr; gap:48px; }
+      .photo-frame { max-width:360px; margin:0 auto; }
+      .float-card { left:-10px; top:-10px; }
+      .float-badge { right:-10px; bottom:-10px; }
+      .port-grid { grid-template-columns:1fr 1fr; }
+      .media-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; gap:32px; }
+      .footer-bottom { flex-direction:column; gap:16px; text-align:center; }
+      .ux-grid { grid-template-columns:1fr 1fr; }
+      .blog-body { padding:28px; }
+      .hero-stats { gap:24px; }
+    }
+    @media (max-width:560px) {
+      .port-grid { grid-template-columns:1fr; }
+      .hero-title { letter-spacing:-1px; }
+      .ux-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">Chloë<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#over-mij">Over mij</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="cv 2026 nederlands.pdf" target="_blank" class="nav-pill">CV ↗</a></li>
+    </ul>
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mob">
+    <a href="#home"      onclick="closeMob()">Home</a>
+    <a href="#over-mij"  onclick="closeMob()">Over mij</a>
+    <a href="#blog"      onclick="closeMob()">Blog</a>
+    <a href="#portfolio" onclick="closeMob()">Portfolio</a>
+    <a href="#media"     onclick="closeMob()">Media</a>
+    <a href="cv 2026 nederlands.pdf" target="_blank" onclick="closeMob()">CV ↗</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="home">
+    <!-- Background decorative orbs -->
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+    <div class="bg-ring bg-ring-1"></div>
+    <div class="bg-ring bg-ring-2"></div>
+
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="dot-live"></span>
+          Digital Marketing &amp; UX/UI Designer
+        </div>
+        <h1 class="hero-title">
+          Hoi, ik ben<br/>
+          <em>Chloë Lieveld</em>
+        </h1>
+    <p class="hero-sub">
+          Creatief designer met een passie voor UX/UI, HCI en de psychologie achter gebruikerservaringen. Van de modewereld naar het digitale, altijd met mensen in het middelpunt.
+        </p>
+        <div class="hero-ctas">
+          <a href="#over-mij" class="btn btn-dark">Leer mij kennen →</a>
+          <a href="#blog" class="btn btn-ghost">Lees mijn blog</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-n">3+</div>
+            <div class="stat-l">Jaar ervaring</div>
+          </div>
+          <div>
+            <div class="stat-n">HBO</div>
+            <div class="stat-l">CMD · HvA</div>
+          </div>
+          <div>
+            <div class="stat-n">∞</div>
+            <div class="stat-l">Creativiteit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="h-ring h-ring-2"></div>
+        <div class="h-ring h-ring-1"></div>
+        <div class="h-orb-main"></div>
+        <div class="sat sat-1"></div>
+        <div class="sat sat-2"></div>
+        <div class="sat sat-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="ac">UX/UI Design</span>
+      <span>Digital Marketing</span>
+      <span class="ac">Gedragspsychologie</span>
+      <span>HCI</span>
+      <span class="ac">Personal Branding</span>
+      <span>Duurzaamheid</span>
+      <span class="ac">SDG 12</span>
+      <span>Content Strategie</span>
+      <span class="ac">UX Research</span>
+      <span>Communicatie</span>
+      <span class="ac">UX/UI Design</span>
+      <span>Digital Marketing</span>
+      <span class="ac">Gedragspsychologie</span>
+      <span>HCI</span>
+      <span class="ac">Personal Branding</span>
+      <span>Duurzaamheid</span>
+      <span class="ac">SDG 12</span>
+      <span>Content Strategie</span>
+      <span class="ac">UX Research</span>
+      <span>Communicatie</span>
+    </div>
+  </div>
+
+  <!-- OVER MIJ -->
+  <section id="over-mij">
+    <div class="over-grid">
+      <div class="photo-col reveal">
+        <div class="float-card">
+          <strong>25</strong>
+          <span>jaar oud · Hoofddorp</span>
+        </div>
+        <div class="photo-frame">
+          <img src="images/IMG_0586.JPG" alt="Chloë Lieveld" />
+          <div class="photo-sheen"></div>
+        </div>
+        <div class="float-badge">✦ CMD · HvA</div>
+        <div class="deco-orb d1"></div>
+        <div class="deco-orb d2"></div>
+      </div>
+
+      <div class="bio-col reveal">
+        <div class="sec-label">Over mij</div>
+        <h2 class="sec-title">Creatief, <em>nieuwsgierig</em><br/>&amp; gedreven</h2>
+
+        <p class="bio-text">
+          Welkom op mijn digitale plek! Ik ben Chloë, een <strong>creatieve duizendpoot</strong> met een enorme <strong>liefde</strong> voor <strong>design, UX/UI, HCI</strong> en soms ook een reisje. Creativiteit heeft altijd gelegen, van mijn tijd in de modewereld en als haarstylist tot mijn huidige werk als designer.
+        </p>
+        <p class="bio-text">
+          <strong>Mijn geheime ingrediënt</strong> is mijn interesse in de psychologie: ik wil niet alleen dat iets er tip top uitziet, maar ook begrijpen hoe de gebruiker het ervaart en beleeft.
+        </p>
+
+        <blockquote class="vision-quote">
+          <strong>"Echte marketing gaat niet over het misleiden</strong> van mensen voor snelle cijfers, maar over het centraal stellen van de mens. Ik geloof in het creëren van een positieve belevenis waarin de gebruiker zich begrepen voelt, in plaats van gepusht."
+        </blockquote>
+
+        <div class="pills">
+          <span class="pill">UX/UI Design</span>
+          <span class="pill">Human-Computer Interaction</span>
+          <span class="pill">Gedragspsychologie</span>
+          <span class="pill">Digital Marketing</span>
+          <span class="pill">Content Strategie</span>
+          <span class="pill">Visual Design</span>
+          <span class="pill">UX Research</span>
+          <span class="pill">Personal Branding</span>
+        </div>
+
+        <div class="link-row">
+          <a href="cv 2026 nederlands.pdf" target="_blank" class="btn btn-dark">Download CV ↗</a>
+          <a href="https://www.linkedin.com/in/chlo%C3%AB-lieveld-8702a9206/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE 2 -->
+  <div class="marquee-bar" aria-hidden="true" style="background:#ede9ff;">
+    <div class="marquee-track" style="animation-direction:reverse; animation-duration:28s;">
+      <span style="color:var(--accent);">Vinted</span>
+      <span style="color:var(--ink2);">SDG 12</span>
+      <span style="color:var(--accent);">Circulaire Economie</span>
+      <span style="color:var(--ink2);">Gedragsmarketing</span>
+      <span style="color:var(--accent);">UX Optimalisatie</span>
+      <span style="color:var(--ink2);">Duurzame Groei</span>
+      <span style="color:var(--accent);">Eco Design</span>
+      <span style="color:var(--ink2);">Conversie</span>
+      <span style="color:var(--accent);">Vinted</span>
+      <span style="color:var(--ink2);">SDG 12</span>
+      <span style="color:var(--accent);">Circulaire Economie</span>
+      <span style="color:var(--ink2);">Gedragsmarketing</span>
+      <span style="color:var(--accent);">UX Optimalisatie</span>
+      <span style="color:var(--ink2);">Duurzame Groei</span>
+      <span style="color:var(--accent);">Eco Design</span>
+      <span style="color:var(--ink2);">Conversie</span>
+    </div>
+  </div>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="sec-label reveal">Blog</div>
+    <h2 class="sec-title reveal">Laatste <em>artikel</em></h2>
+
+    <div class="blog-card reveal">
+      <div class="blog-visual">
+        <div class="bv-orb bv1"></div>
+        <div class="bv-orb bv2"></div>
+        <div class="bv-orb bv3"></div>
+        <div class="bv-ring"></div>
+        <span class="blog-label">Digital Marketing</span>
+        <span class="blog-sdg">🌱 SDG 12</span>
+      </div>
+
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-date">Mei 2026</span>
+          <span>·</span>
+          <span class="blog-read">8 min leestijd</span>
+        </div>
+        <h2 class="blog-title">SDG 12 Schalen: Hoe Vinted UX en Gedragsmarketing Combineert voor Groene Groei</h2>
+        <p class="blog-intro">
+Duurzaamheid is voor de moderne zakelijke markt geen abstract ethisch vraagstuk meer; het is een operationele uitdaging. Hoe verander je lineair consumentengedrag in een circulaire gewoonte? Het succes van Vinted ligt niet in belerend vingerwijzen, maar in een sterke synergie tussen psychologische marketingpositionering en UX-optimalisatie. Hiermee levert het platform een blauwdruk voor het behalen van EU SDG 12 (Verantwoorde Consumptie en Productie).
+        </p>
+
+        <div class="acc">
+          <!-- Sectie 1 -->
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <span>Van 'Eco-Guilt' naar Financiële Incentive</span>
+              <div class="acc-icon">+</div>
+            </div>
+            <div class="acc-content">
+              <div class="acc-inner">
+                <p>Waar veel groene initiatieven blijven steken in het aanpraten van een schuldgevoel (eco-guilt), gooit Vinted het commercieel over een andere boeg. Hun digital marketingcampagnes zoals het bekende: <em>"Je draagt het niet? Verkoop het!"</em> focussen primair op de directe voordelen voor de consument: extra geld verdienen en unieke mode vinden.</p>
+                <div class="highlight-box">
+                  <p>Achter de schermen gebruikt Vinted geavanceerde retargeting en marketingautomatisering. Zodra een gebruiker interesse toont in een specifiek merk, pusht het algoritme direct tweedehands alternatieven.</p>
+                  <span class="stat-badge">🌿 1,8 kg CO₂ bespaard per aankoop</span>
+                </div>
+                <p>Door deze positieve impact na een transactie subtiel terug te koppelen in de app, bevestigt Vinted 's duurzame keuze van de consument zónder de commerciële flow te verstoren.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sectie 2 -->
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <span>De Psychologie achter de 'Fast Fashion' UX</span>
+              <div class="acc-icon">+</div>
+            </div>
+            <div class="acc-content">
+              <div class="acc-inner">
+           
+                <p>Vinted's grootste marketingwapen is dat het platform niet voelt als een stoffige kringloopwinkel. De User Interface (UI) dient als de visuele brug die de drempel voor de consument minimaliseert (Gunawan et al., 2021). Door een strakke design consistency toe te passen (Urmi, 2023), bootst de app de verslavende interface en infinite scroll van grote fast-fashion giganten na.</p>
+<div class="video-placeholder" onclick="window.open('https://youtu.be/39f10BQk200', '_blank')">
+  <div class="play-btn">▶</div>
+  <div class="vp-title">UX Screencast: Vinted vs. Traditionele E-commerce</div>
+  <div class="vp-sub">Klik om de vloeiende swipe- en ontdekfeed te bekijken · YouTube</div>
+</div>
+
+                <div class="ux-grid">
+                  <div class="ux-card">
+                    <div class="ux-icon">📱</div>
+                    <div class="ux-label">Mobile First</div>
+                    <div class="ux-desc">Volledig ontworpen als mobile interface voor interactieve ervaring zonder overmatig scrollen</div>
+                  </div>
+                  <div class="ux-card">
+                    <div class="ux-icon">♾️</div>
+                    <div class="ux-label">Infinite Scroll</div>
+                    <div class="ux-desc">Verslavende swipe-feed die de drempel tot duurzame mode radicaal verlaagt</div>
+                  </div>
+                  <div class="ux-card">
+                    <div class="ux-icon">⚡</div>
+                    <div class="ux-label">&lt; 1 minuut</div>
+                    <div class="ux-desc">Kledingstuk aanbieden gereduceerd tot een frictieloos proces van minder dan een minuut</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sectie 3 -->
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <span>Vertrouwen als Conversie-Optimalisatie</span>
+              <div class="acc-icon">+</div>
+            </div>
+            <div class="acc-content">
+              <div class="acc-inner">
+                <p>In een peer-to-peer markt is wantrouwen tussen vreemden de grootste conversiekiller. Vinted lost dit op door technische UX-elementen strategisch in te zetten voor risicovermindering.</p>
+                <div class="ux-grid" style="grid-template-columns:1fr 1fr;">
+                  <div class="ux-card">
+                    <div class="ux-icon">🔔</div>
+                    <div class="ux-label">Snelheid</div>
+                    <div class="ux-desc">Directe push-notificaties en geautomatiseerde verzendlabels verhogen de processnelheid en gebruikersbereidheid (Oktavia et al., 2023)</div>
+                  </div>
+                  <div class="ux-card">
+                    <div class="ux-icon">🔒</div>
+                    <div class="ux-label">Veiligheid</div>
+                    <div class="ux-desc">Verplicht 'Kopersbescherming'-tarief en gecentraliseerde reviews bouwen het vertrouwen op in het besluitvormingsproces (Oktavia et al., 2023)</div>
+                  </div>
+                </div>
+                <p style="margin-top:14px;">Deze combinatie houdt de bounce rate laag en maximaliseert de stickiness van het platform (Urmi, 2023) — en levert tegelijkertijd een schaalbare blauwdruk voor EU SDG 12.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="refs">
+          <h4>Referenties</h4>
+          <p>Gunawan, T. et al. (2021). The role of UI as a bridge minimizing consumer threshold in second-hand platforms.</p>
+          <p>Urmi, S. (2023). Design consistency and mobile interface patterns in sustainable e-commerce applications.</p>
+          <p>Hasan, R. et al. (2024). Frictionless UX and its relationship with conversion rate and customer loyalty.</p>
+          <p>Oktavia, D. et al. (2023). Push notifications, automated logistics and trust-building in peer-to-peer marketplaces.</p>
+          <p>Vinted (2023). <em>Climate Impact Report 2023.</em> Vinted UAB.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="sec-label reveal">Portfolio</div>
+    <h2 class="sec-title reveal">Mijn <em>werk</em></h2>
+    <p style="color:var(--ink2);font-size:1rem;font-weight:300;max-width:500px;margin-bottom:0;" class="reveal">
+      Een selectie van mijn meest recente projecten op het gebied van design, app-ontwikkeling en machine learning.
+    </p>
+
+    <div class="port-grid">
+      <div class="port-card reveal">
+        <div class="port-thumb pt-1">
+          <div class="pt-orb po-1"></div>
+          <img src="images/Menu.png" alt="Café Menu Concept">
+          <div class="port-overlay">
+            <h3>Café Menu Concept</h3>
+            <p>Een op maat ontworpen digitaal en fysiek menu voor een modern café-concept.</p>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">Café Menu Design</div>
+          <div class="port-tag">UX/UI Design · 2025</div>
+        </div>
+      </div>
+
+      <div class="port-card reveal">
+        <div class="port-thumb pt-2">
+          <div class="pt-orb po-2"></div>
+          <img src="images/Pasta app.png" alt="Handgemaakte Pasta App">
+          <div class="port-overlay">
+            <h3>Pasta Recepten App</h3>
+            <p>Een intuïtieve applicatie die gebruikers stap-voor-stap helpt bij het maken van authentieke pasta.</p>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">Handgemaakte Pasta App</div>
+          <div class="port-tag">App Design &amp; UX · 2025</div>
+        </div>
+      </div>
+
+      <div class="port-card reveal">
+        <div class="port-thumb pt-3">
+          <div class="pt-orb po-3"></div>
+          <img src="images/model training.png" alt="Candy Bar Image Recognition">
+          <div class="port-overlay">
+            <h3>Candy Bar Recognition</h3>
+            <p>Een getraind machine learning model dat door moyen van beeldherkenning specifieke candy bars identificeert.</p>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">AI Image Recognition</div>
+          <div class="port-tag">Machine Learning · 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section id="media">
+    <div class="sec-label reveal">Media</div>
+    <h2 class="sec-title reveal">Inspiratie &amp; <em>inzichten</em></h2>
+
+    <div class="media-grid">
+      <div class="media-card reveal">
+        <div class="media-thumb">
+          <iframe
+            src="https://www.youtube.com/embed/9uOMectkCCs"
+            title="TED Talk UX UI Design"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="media-info">
+          <div class="media-type">✦ Video · Placeholder</div>
+          <div class="media-title">The first secret of great design | Tony Fadell</div>
+          <div class="media-meta">TED Talk · UX Design Inspiratie</div>
+        </div>
+      </div>
+
+      <div class="media-card reveal">
+        <div class="media-thumb">
+          <iframe
+            src="https://www.youtube.com/embed/m1XasN3EMXg"
+            title="Mijn eigen video — Chloë Lieveld"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="media-info">
+          <div class="media-type">✦ Video · Portfolio</div>
+          <div class="media-title">Mijn eigen video</div>
+          <div class="media-meta">Chloë Lieveld · 2026</div>
+        </div>
+      </div>
+    </div> <!-- HIER ONTBRAC EEN SLUITENDE DIV DIE DE LAYOUT BRAK -->
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-orb fo-1"></div>
+    <div class="footer-orb fo-2"></div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo">Chloë<span style="color:var(--accent);">.</span></a>
+        <p>Creatief designer met een passie voor UX/UI, HCI en de psychologie achter gebruikerservaringen.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigatie</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#over-mij">Over mij</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#media">Media</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:Chloelieveld@gmail.com">Chloelieveld@gmail.com</a></li>
+          <li><a href="https://www.linkedin.com/in/chlo%C3%AB-lieveld-8702a9206/" target="_blank">LinkedIn ↗</a></li>
+          <li><a href="cv 2026 nederlands.pdf" target="_blank">Download CV ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Chloë Lieveld · Alle rechten voorbehouden</span>
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/chlo%C3%AB-lieveld-8702a9206/" target="_blank" class="social-btn" title="LinkedIn">in</a>
+        <a href="mailto:Chloelieveld@gmail.com" class="social-btn" title="E-mail">@</a>
+        <a href="cv 2026 nederlands.pdf" target="_blank" class="social-btn" title="CV">↗</a>
+      </div>
+    </div>
+  </footer>
+
+
+ <script>
+    // ── Hamburger menu ──
+    const ham = document.getElementById('ham');
+    const mob = document.getElementById('mob');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+      document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMob() {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Accordion ──
+    function toggleAcc(header) {
+      const item = header.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Navbar scroll shadow ──
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      nav.style.boxShadow = window.scrollY > 40
+        ? '0 4px 32px rgba(120,100,200,0.10)'
+        : 'none';
+    });
+
+    // ── Smooth active nav highlight ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current
+          ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
